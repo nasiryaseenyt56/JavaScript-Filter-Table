@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System | Professional Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">EMS Pro</span>
+                    <span class="logo-subtitle">Enterprise Management</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="#dashboard" class="nav-link active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#employees" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Employees</span>
+                </a>
+                <a href="#reports" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reports</span>
+                </a>
+            </nav>
+            <div class="header-actions">
+                <button class="header-btn" title="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
+                <div class="user-profile">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="User" class="user-avatar">
+                    <span class="user-name">Admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item">Home</span>
+                    <i class="fas fa-chevron-right"></i>
+                    <span class="breadcrumb-item active">Dashboard</span>
+                </div>
+                <div class="page-title-section">
+                    <div class="page-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="page-title-content">
+                        <h1>Employee Management Dashboard</h1>
+                        <p class="subtitle">Manage your team efficiently with our professional tools</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <div class="search-filters">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="filterInput" placeholder="Search employees by name, city, or occupation...">
+                    </div>
+                    <div class="filter-options">
+                        <select class="filter-select" id="cityFilter">
+                            <option value="">All Cities</option>
+                        </select>
+                        <select class="filter-select" id="roleFilter">
+                            <option value="">All Roles</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn-primary" id="showAddForm">
+                        <i class="fas fa-plus"></i>
+                        Add Employee
+                    </button>
+                </div>
+            </div>
+
+            <div class="add-section" id="addSection" style="display: none;">
+                <h3><i class="fas fa-user-plus"></i> Add New Employee</h3>
+                <div class="form-grid">
+                    <input type="text" id="nameInput" placeholder="Full Name" required>
+                    <input type="number" id="ageInput" placeholder="Age" min="18" max="100" required>
+                    <input type="text" id="cityInput" placeholder="City" required>
+                    <input type="text" id="occupationInput" placeholder="Job Title" required>
+                </div>
+                <div class="form-actions">
+                    <button id="addBtn"><i class="fas fa-save"></i> Save Employee</button>
+                    <button id="cancelBtn" type="button"><i class="fas fa-times"></i> Cancel</button>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-card">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalEmployees">10</span>
+                        <span class="stat-label">Total Employees</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-map-marker-alt stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalCities">10</span>
+                        <span class="stat-label">Cities</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-briefcase stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalRoles">10</span>
+                        <span class="stat-label">Job Roles</span>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="table-container">
+                <div class="table-header">
+                    <h2><i class="fas fa-table"></i> Employee Directory</h2>
+                    <span class="table-count">Showing <span id="visibleCount">10</span> employees</span>
+                </div>
+                
+                <div class="table-wrapper">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>City</th>
+                                <th>Occupation</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John Doe</td>
+                                <td>28</td>
+                                <td>New York</td>
+                                <td>Developer</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>34</td>
+                                <td>Los Angeles</td>
+                                <td>Designer</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Mike Johnson</td>
+                                <td>42</td>
+                                <td>Chicago</td>
+                                <td>Manager</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Sarah Wilson</td>
+                                <td>29</td>
+                                <td>Houston</td>
+                                <td>Analyst</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>David Brown</td>
+                                <td>35</td>
+                                <td>Phoenix</td>
+                                <td>Engineer</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Emily Davis</td>
+                                <td>31</td>
+                                <td>Seattle</td>
+                                <td>Product Manager</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Robert Miller</td>
+                                <td>45</td>
+                                <td>Boston</td>
+                                <td>Architect</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Lisa Garcia</td>
+                                <td>27</td>
+                                <td>Miami</td>
+                                <td>Marketing Specialist</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Kevin Lee</td>
+                                <td>33</td>
+                                <td>San Francisco</td>
+                                <td>Data Scientist</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Amanda White</td>
+                                <td>39</td>
+                                <td>Denver</td>
+                                <td>HR Director</td>
+                                <td><div class="action-buttons-cell"><button class="btn-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="btn-icon view-btn" title="View"><i class="fas fa-eye"></i></button></div></td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Employee Management System Pro. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+    </footer>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Person Details</h2>
+            <div id="personDetails"></div>
+        </div>
+    </div>
+    
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-edit">&times;</span>
+            <h2>Edit Person</h2>
+            <form id="editForm">
+                <input type="text" id="editName" placeholder="Name" required>
+                <input type="text" id="editAge" placeholder="Age" required>
+                <input type="text" id="editCity" placeholder="City" required>
+                <input type="text" id="editOccupation" placeholder="Occupation" required>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
